@@ -34,6 +34,16 @@
   padding: 16px 8px;
   border: 1px solid #dcdee3;
   background-color: #e5e9f1;
+  display: flex;
+  justify-content: flex-end;
+
+  >* {
+    width: 250px;
+  }
+
+  >*:not(:last-child) {
+    margin-right: 10px;
+  }
 }
 
 .c-chart__container {

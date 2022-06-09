@@ -11,10 +11,12 @@
 
 <script>
 import PerformanceChartComponent from "../components/vue-components/performance-chart.vue";
+import TextInput from "../components/vue-components/UI/TextInput.vue";
 export default {
   name: "AboutPageComponent",
   components: {
     PerformanceChartComponent,
+    TextInput,
   },
 };
 </script>
