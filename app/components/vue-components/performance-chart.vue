@@ -1,6 +1,6 @@
 <template>
   <div class="c-chart__container">
-    <v-chart ref="chart" :option="chartOptions" />
+    <v-chart ref="chart" :loading="loading" :option="chartOptions" />
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import {
   VisualMapComponent,
 } from "echarts/components";
 import VChart from "vue-echarts";
+import Loader from "../../components/vue-components/UI/Loader.vue";
 
 use([
   CanvasRenderer,
@@ -25,50 +26,25 @@ use([
   GridComponent,
   VisualMapComponent,
 ]);
-
 export default {
   name: "PerformanceChartComponent",
-
+  props: {
+    data: {
+      required: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
+    Loader,
     VChart,
   },
-
-  data() {
-    return {
-      chartData: [
-        {
-          date_ms: 1641772800000,
-          performance: 0.2,
-        },
-        {
-          date_ms: 1641859200000,
-          performance: 0.33,
-        },
-        {
-          date_ms: 1641945600000,
-          performance: 0.53,
-        },
-        {
-          date_ms: 1642032000000,
-          performance: 0.31,
-        },
-        {
-          date_ms: 1642118400000,
-          performance: 0.65,
-        },
-        {
-          date_ms: 1642204800000,
-          performance: 0.88,
-        },
-        {
-          date_ms: 1642291200000,
-          performance: 0.07,
-        },
-      ],
-    };
-  },
-
   computed: {
+    chartData() {
+      return this.data;
+    },
     initOptions() {
       return {
         width: "auto",
@@ -83,7 +59,7 @@ export default {
           left: "center",
         },
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           transitionDuration: 0,
           confine: false,
           hideDelay: 0,
@@ -115,6 +91,35 @@ export default {
           axisTick: { show: true },
           splitLine: { show: true },
         },
+        visualMap: {
+          dimension: 1,
+          seriesIndex: 0,
+          top: 70,
+          right: 10,
+          pieces: [
+            {
+              min: 0,
+              max: 50,
+              color: "#f44336",
+              label: "0-50",
+            },
+            {
+              min: 50,
+              max: 80,
+              color: "#ffeb3b",
+              label: "50-80",
+            },
+            {
+              min: 80,
+              max: 100,
+              color: "#4caf50",
+              label: "80-100",
+            },
+          ],
+          outOfRange: {
+            color: "#000",
+          },
+        },
         series: [
           {
             data: this.yAxisData,
@@ -124,6 +129,9 @@ export default {
             cursor: "default",
             lineStyle: {
               width: 2,
+            },
+            label: {
+              show: true,
             },
           },
         ],
@@ -146,3 +154,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
