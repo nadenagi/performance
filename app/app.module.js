@@ -4,6 +4,7 @@ import 'ngVue/build/plugins.js';
 import PerformancePageComponent from './pages/performance-page.vue';
 import PerformanceChartComponent from './components/vue-components/performance-chart.vue';
 import TextInputComponent from './components/vue-components/UI/TextInput.vue';
+import NotFound from './pages/404.vue';
 
 angular.module('appModule', [
   'ui.router',
@@ -21,4 +22,8 @@ angular.module('appModule').directive('vPerformanceChart', (createVueComponent) 
 
 angular.module('appModule').directive('textInput', (createVueComponent) => {
   return createVueComponent(Vue.component('TextInput', TextInputComponent));
+});
+
+angular.module('appModule').directive('vPageNotFound', (createVueComponent) => {
+  return createVueComponent(Vue.component('pageNotFoundComponent', NotFound));
 });
