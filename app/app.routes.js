@@ -1,7 +1,7 @@
 angular.module('appModule')
   .config(($locationProvider) => {
     $locationProvider.html5Mode({
-      enabled: true,
+      enabled: false,
     });
   })
   .config(($stateProvider) => {
